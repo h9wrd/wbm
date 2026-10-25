@@ -1,0 +1,18 @@
+services:
+  webstreamr:
+    build: .
+    container_name: webstreamr-mbg
+    restart: unless-stopped
+    ports:
+      - "51546:51546"
+    env_file:
+      - .env.dockhand
+    environment:
+      NODE_ENV: production
+      PORT: 51546
+    volumes:
+      # Persist the SQLite cache database across restarts
+      - webstreamr-data:/app/data
+
+volumes:
+  webstreamr-data:
